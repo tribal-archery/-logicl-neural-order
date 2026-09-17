@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Neural Thinking Machine Result Envelope",
+  "type": "object",
+  "required": ["request_id", "task_id", "machine_id", "role", "model_ref", "output", "uncertainty", "status", "provenance"],
+  "properties": {
+    "request_id": {"type": "string"},
+    "task_id": {"type": "string"},
+    "machine_id": {"type": "string"},
+    "role": {"type": "string"},
+    "model_ref": {"type": "string"},
+    "input_hash": {"type": "string"},
+    "output": {},
+    "evidence_refs": {"type": "array", "items": {"type": "string"}},
+    "uncertainty": {"type": "number", "minimum": 0, "maximum": 1},
+    "usage": {"type": "object"},
+    "latency_ms": {"type": "number", "minimum": 0},
+    "status": {"type": "string", "enum": ["OK", "ERROR", "CONFLICT", "UNVERIFIED", "BLOCKED"]},
+    "provenance": {
+      "type": "object",
+      "required": ["origin", "chain_id"],
+      "properties": {
+        "origin": {"type": "string"},
+        "chain_id": {"type": "string"},
+        "parent_message_id": {"type": "string"},
+        "source_hash": {"type": "string"}
+      },
+      "additionalProperties": true
+    }
+  },
+  "additionalProperties": false
+}
