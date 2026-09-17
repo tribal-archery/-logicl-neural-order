@@ -1,0 +1,55 @@
+{
+  "schema_version": "1.0.0",
+  "entity": "model_index",
+  "required": [
+    "index_id",
+    "agent_id",
+    "model_ref",
+    "project_ids",
+    "entries"
+  ],
+  "entry_types": [
+    "session",
+    "fact",
+    "decision",
+    "evidence",
+    "question",
+    "conflict",
+    "drift",
+    "code_reference",
+    "synthesis"
+  ],
+  "entry_fields": [
+    "entry_id",
+    "entry_type",
+    "project_id",
+    "timestamp",
+    "content",
+    "source_session",
+    "source_message",
+    "agent_id",
+    "model_ref",
+    "content_hash",
+    "confidence",
+    "evidence_refs",
+    "related_entries",
+    "status"
+  ],
+  "retrieval_dimensions": [
+    "intent",
+    "project",
+    "agent_id",
+    "entities",
+    "time_range",
+    "evidence_need",
+    "unresolved_conflicts"
+  ],
+  "statuses": [
+    "candidate",
+    "durable",
+    "superseded",
+    "conflicted",
+    "verified",
+    "restricted"
+  ]
+}
