@@ -44,6 +44,22 @@ For current research and funding discussions, the project uses scenario ranges r
 
 These are internal scenario estimates for discussion. They are **not** an independent third-party appraisal, audited valuation, guaranteed transaction price, or prediction of future market value. The actual value of any company, technology, or transaction would depend on evidence, commercial performance, agreements, and market conditions.
 
+## Platform ownership and funding model
+
+**The project is not being offered for sale as a whole platform.**
+
+The objective is to obtain funding and qualified collaboration to continue developing, validating, and expanding the architecture. Funders and research partners may support specific research programs, scientific work, engineering milestones, infrastructure, or other agreed activities without that automatically constituting a sale of the underlying platform.
+
+The architecture, research platform, concepts, and technical coordination layer remain the project's core assets. Any future partnership concerning a specific General AI tool or research product can be negotiated separately and documented through an appropriate agreement.
+
+Any equity, licensing, investment, digital-asset, token, or other financial arrangement is a separate legal and commercial matter and is not implied by this repository.
+
+## Proposed founder / chief-architect work rate
+
+For work personally performed by the project founder/architect, a **proposed target professional rate of USD 10,000 per hour** is being used as an internal pricing position for specialized architecture, strategic technical direction, research design, and high-level AI systems work.
+
+This figure is a **proposed rate, not a claim about a market-standard hourly rate or an independently established fair-market value**. Actual engagements should be priced and documented according to scope, deliverables, responsibility, evidence of expertise, and the applicable contractual and legal framework.
+
 ## Funding and collaboration objective
 
 **We are seeking qualified funders, research organizations, scientific collaborators, and technical partners** to help move the architecture into a larger validated research and engineering program.
@@ -82,4 +98,4 @@ The repository contains the operational Thinking Machine specification, Neural O
 
 **We are seeking qualified funders, research organizations, scientific collaborators, and technical partners interested in advancing the Neural Thinking Machine / WANGA architecture.**
 
-Interested parties should review the repository architecture and contact the project maintainers to discuss research scope, collaboration, funding structure, and technical milestones.
+Interested parties should review the repository architecture and contact the project maintainers to discuss research scope, collaboration, funding structure, technical milestones, and the proposed founder/architect work rate.
