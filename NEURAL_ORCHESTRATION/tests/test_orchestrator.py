@@ -19,6 +19,7 @@ def build_ntm():
     machines = [
         MachineSpec("M004", "coder", "mock-code", frozenset({"code"}), 0.9),
         MachineSpec("M005", "math_reasoner", "mock-math", frozenset({"formal_reasoning"}), 0.9),
+        MachineSpec("M008", "verifier", "mock-verifier", frozenset({"verification"}), 0.85),
         MachineSpec("M001", "planner", "mock-general", frozenset({"general_reasoning"}), 0.8),
         MachineSpec("M007", "drift_analyst", "mock-search", frozenset({"search"}), 0.7),
     ]
@@ -36,7 +37,7 @@ def test_code_routes_to_neuro_symbolic_modes():
     assert verification["accepted"] is True
 
 
-def test_high_uncertainty_routes_to_recovery_modes():
+def test_high_uncertainty_routes_to_verifier():
     ntm = build_ntm()
     task = new_task(
         {"action": "analyze", "object": "uncertain system"},
@@ -45,7 +46,8 @@ def test_high_uncertainty_routes_to_recovery_modes():
         dispersion=0.4,
     )
     results, verification = ntm.execute(task)
-    assert results[0].machine_id == "M005" or results[0].machine_id == "M007"
+    assert results[0].machine_id == "M008"
+    assert 2 in results[0].output["modes"]
     assert verification["accepted"] is True
 
 
@@ -57,4 +59,12 @@ def test_missing_adapter_is_blocked():
     task = new_task({"action": "analyze", "object": "task"}, "data")
     results, verification = ntm.execute(task)
     assert results[0].status == "BLOCKED"
+    assert results[0].provenance["chain_id"]
     assert verification["accepted"] is False
+
+
+def test_route_and_verification_are_audited():
+    ntm = build_ntm()
+    task = new_task({"action": "analyze", "object": "task"}, "data")
+    ntm.execute(task)
+    assert [event["event_type"] for event in ntm.audit.events] == ["ROUTE", "VERIFY"]
