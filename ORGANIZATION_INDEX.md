@@ -1,83 +1,34 @@
 # tribal-archery — Organization Architecture Index
 
 ## Status
-
 - GitHub organization: `tribal-archery`
-- Connection status: accessible through the connected GitHub integration
-- Repository used as the initial architecture workspace: `-logicl-neural-order`
-- Current repository permissions exposed to the connection: admin / maintain / push / pull / triage
+- Initial architecture workspace: `-logicl-neural-order`
+- Current connected repository permissions exposed: admin / maintain / push / pull / triage
 
-## Organization-Level Structure
+## System architecture
+1. Neural Thinking Machine — Priority / Context / Intent / Semantic Routing / Project / Evidence / Capability / Execution / Verification / Self-Audit / Drift.
+2. Neural OS — Event Bus / State / Directives / Typed State Updates / Context Binding / Execution Gateway / Provenance.
+3. Brain Network — provider-neutral model registry / adapters / specialist nodes / critic / verifier / synthesizer / usage.
+4. AI Drift Forensics — baselines / drift classification / propagation / persistence / recovery / evidence / audit.
+5. AI²³¹ Research — semantic cognition / symbolic language / mathematical structures / metacognition.
+6. Ontometric Research — Place / Time / Anchor / Function-Relation-Scale / reproducibility / audit.
+7. WANGA Infrastructure — runtime / network / schemas / security / CI/CD.
+8. Neural Orchestration — unified task protocol and computation allocation across replaceable model nodes.
 
-### 01 — Neural Thinking Machine
-- Core
-- Priority / Context / Intent Kernels
-- Semantic Router
-- Project Router
-- Evidence Router
-- Capability Router
-- Execution
-- Verification
-- Self-Audit
-- Drift Check
+## Orchestration invariant
+The system is unified by shared task identity, context binding, state/directive schemas, provenance, verification, drift taxonomy, and a decision gate. Models are replaceable compute nodes.
 
-### 02 — Neural OS
-- Event Bus
-- State Manager
-- System Directives
-- Typed State Updates
-- Context Binding
-- Execution Gateway
-- Provenance / Audit
+## Machine scaling
+The architecture supports M001–M100+ logical machines. This does not imply 100 live provider accounts. A machine becomes `connected` only after adapter/configuration and health verification.
 
-### 03 — Brain Network
-- Model Registry
-- Provider Adapters
-- OpenAI nodes
-- Gemini nodes
-- Anthropic nodes
-- Critic / Verifier nodes
-- Synthesizer
-- Cost / Usage tracking
+## Copilot layer
+Repository custom instructions: `.github/copilot-instructions.md`
+Agent contract: `AGENTS.md`
+Specialized agents: `.github/agents/`
 
-### 04 — AI Drift Forensics
-- Baselines
-- Drift Detection
-- Drift Classification
-- Propagation Analysis
-- Persistence / Recovery
-- Evidence Chain
-- Verification
-- Audit Reports
+GitHub documents repository custom instructions and custom agents as supported mechanisms for persistent specialization. See the official documentation: https://docs.github.com/en/copilot/concepts/agents/copilot-cli/about-custom-agents and https://docs.github.com/en/copilot/how-tos/configure-custom-instructions-in-your-ide/add-repository-instructions-in-your-ide.
 
-### 05 — AI²³¹ Research
-- Semantic cognition
-- Symbolic language architecture
-- Hebrew Gates
-- Unity Points
-- Crystal / mathematical structures
-- Metacognitive encoders
-
-### 06 — Ontometric Research
-- Place
-- Time
-- Anchor
-- Function / Relation / Scale
-- Reproducibility λ
-- Coordinate–Function–Ratio model
-- Audit artifacts
-
-### 07 — WANGA Computer / Infrastructure
-- Runtime
-- Network
-- System Services
-- Schemas
-- Security
-- CI/CD
-- Documentation
-
-## Repository Inventory — Initial
-
+## Existing repositories
 | Repository | Initial role | Status |
 |---|---|---|
 | `-logicl-neural-order` | Neural / logical architecture workspace | Active |
@@ -88,15 +39,15 @@
 | `unetbootin` | Existing software project | Existing |
 | `vscode-azure-blockchain-ethereum` | Existing software project | Existing |
 
-## Governance Rule
+## Governance
+Do not reorganize, rename, delete, or transfer existing repositories without evidence-based classification and explicit authorization.
 
-Do not reorganize, rename, delete, or transfer existing repositories solely from this index. First classify each repository by evidence from its contents, then propose or execute structural changes explicitly.
-
-## Next Build Queue
-
-1. Inventory each repository.
-2. Classify repository → project → component.
-3. Identify duplicates and shared infrastructure.
-4. Establish canonical repositories for Neural Thinking Machine, Neural OS, Brain Network, Drift Forensics, AI²³¹, and Ontometric.
-5. Add cross-repository architecture links.
-6. Add organization-level documentation and audit conventions.
+## Build queue
+1. Orchestrator runtime.
+2. Task/result schemas.
+3. Provider adapters.
+4. Computation allocation and parallel dispatch.
+5. Critic/verifier gate.
+6. Persistent audit/provenance.
+7. Drift feedback loop.
+8. Expand specialist machine registry toward 100+ logical nodes.
