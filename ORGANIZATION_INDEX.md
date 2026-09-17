@@ -51,3 +51,33 @@ Do not reorganize, rename, delete, or transfer existing repositories without evi
 6. Persistent audit/provenance.
 7. Drift feedback loop.
 8. Expand specialist machine registry toward 100+ logical nodes.
+
+## Global Algorithmic Neural Governance
+
+The organization-level research program includes a governance research domain focused on algorithmic and neural AI governance.
+
+This domain is a **research and standards program**, not a claim of governmental authority or an existing international governing institution.
+
+Planned scope:
+- AI governance architecture and institutional design research.
+- Algorithmic accountability and auditability.
+- AI evaluation, reliability, and drift forensics.
+- Evidence, provenance, traceability, and verification.
+- Interoperability with established AI governance and risk-management frameworks.
+- Human oversight, escalation, and decision gates.
+- Cross-jurisdictional research and standards mapping.
+- Technical interfaces between governance policy and executable AI systems.
+
+Reference alignment will be maintained against established public frameworks rather than presented as replacement authority. Current reference points include NIST AI RMF's Govern/Map/Measure/Manage structure and OECD AI Principles on human rights, transparency, robustness, accountability, and international cooperation. See:
+- https://www.nist.gov/itl/ai-risk-management-framework
+- https://www.oecd.org/en/topics/ai-principles.html
+
+Suggested project structure:
+`GLOBAL_ALGORITHMIC_NEURAL_GOVERNANCE/`
+- `README.md` — mission, scope, and boundaries.
+- `GOVERNANCE_ARCHITECTURE_V1.md` — institutional/technical architecture.
+- `AI_ASSURANCE_AND_DRIFT_FORENSICS.md` — assurance, evaluation, and drift interface.
+- `STANDARDS_CROSSWALK.md` — mapping to public AI governance standards.
+- `ROLES_AND_DECISION_GATES.md` — human oversight and escalation model.
+- `RESEARCH_ROADMAP.md` — research milestones.
+
