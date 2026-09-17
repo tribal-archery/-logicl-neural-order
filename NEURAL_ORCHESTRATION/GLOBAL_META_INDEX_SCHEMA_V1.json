@@ -1,0 +1,38 @@
+{
+  "schema_version": "1.0.0",
+  "entity": "global_meta_index",
+  "purpose": "Index the indexes of the Neural Thinking Machine",
+  "lifecycle": [
+    "INGEST",
+    "CLASSIFY",
+    "HASH",
+    "LINK",
+    "SUMMARIZE",
+    "DETECT_CONFLICT",
+    "UPDATE_META_INDEX",
+    "VERIFY",
+    "REFRESH"
+  ],
+  "required": [
+    "index_id",
+    "parent_index_id",
+    "current_version",
+    "last_indexed_version",
+    "content_hash",
+    "status"
+  ],
+  "freshness_states": [
+    "fresh",
+    "dirty",
+    "conflicted",
+    "restricted"
+  ],
+  "index_layers": [
+    "model_index",
+    "agent_index",
+    "domain_index",
+    "project_index",
+    "cross_agent_index",
+    "global_meta_index"
+  ]
+}
