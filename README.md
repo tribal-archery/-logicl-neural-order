@@ -33,6 +33,7 @@ The M100+ registry is a scaling target for logical machines. It does **not** mea
 - `.github/agents/` — specialized agent profiles.
 - `ORGANIZATION_INDEX.md` — organization-level architecture index.
 - `INVESTOR_BRIEF_V1.md` — research/funding positioning and internal valuation scenarios.
+- `CONTACT_AND_COLLABORATION.md` — public route for technical, research, and partnership inquiries.
 
 ## Design principles
 
@@ -46,6 +47,32 @@ The M100+ registry is a scaling target for logical machines. It does **not** mea
 8. Failed computation must be diagnosable.
 9. Drift is recorded rather than silently normalized.
 10. No capability is claimed as connected unless it has actually been verified.
+
+## Strategic value thesis
+
+The project deliberately separates **current technical evidence** from **future strategic value**.
+
+The opening strategic value scenario for a fully demonstrated system is framed at **$1 trillion**. This is a long-term scenario, not a present market valuation.
+
+The $1T figure is therefore treated as a **starting strategic valuation thesis, not a ceiling**. If a working prototype demonstrates a genuinely differentiated architecture, measurable general capability, scientific verification, reliability, provenance, orchestration, and scalable enterprise utility, higher multi-trillion-dollar scenarios can be evaluated.
+
+The commercial thesis is based on **strategic urgency**, not an assumption that every company will automatically sign a contract. If the system creates a material competitive advantage, organizations may have strong incentives to evaluate, integrate, license, partner with, or otherwise obtain access to the capability before competitors do.
+
+Any future valuation must remain evidence-based and should be updated using:
+- working-model performance;
+- independent evaluation;
+- reproducibility;
+- enterprise adoption;
+- revenue and contract evidence;
+- infrastructure/scaling economics;
+- defensibility and switching costs;
+- measurable competitive advantage.
+
+### Scientific-value layer
+
+A central research objective is to connect AI capability with a rigorous evidence and verification layer. The broader vision includes a digital value mechanism whose basis would be **scientifically measurable and auditable properties**, rather than an unsupported financial claim.
+
+This is a research architecture and future-value thesis. It is not a claim that such a valuation, currency, market position, or scientific superiority has already been established.
 
 ## Scope
 
@@ -62,6 +89,8 @@ The current branch contains the V1 orchestration skeleton and supporting documen
 ## Funding and collaboration
 
 The project is seeking qualified research funding and technical/scientific collaboration. The platform is not being offered for sale as a whole through this repository. See [INVESTOR_BRIEF_V1.md](INVESTOR_BRIEF_V1.md) for the current internal funding position and valuation scenarios.
+
+For organizations interested in technical or research collaboration, use the public contact route in [CONTACT_AND_COLLABORATION.md](CONTACT_AND_COLLABORATION.md).
 
 ## Maintainer
 
