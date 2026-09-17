@@ -6,7 +6,13 @@ The Neural Thinking Machine contains a supervisory index whose job is to continu
 It is not a second copy of every conversation. It is a meta-index over distributed memory surfaces.
 
 ## Hierarchy
-Conversation -> Model Index -> Agent Index -> Project/Cross-Agent Index -> Global Meta-Index -> Brain of Brain
+Conversation -> Model Index -> Agent Index -> Project/Cross-Agent Index -> Specialized Structural Indexes -> Global Meta-Index -> Brain of Brain
+
+## Specialized structural views
+
+The Global Meta-Index hosts domain-specific structural indexes without making them separate memory silos.
+
+The Vitruvius Structural Index is one such view. It indexes relationships between structures: contains, depends_on, derived_from, implements, constrains, supports, contradicts, verifies, located_in, and evolves_from.
 
 ## Continuous lifecycle
 INGEST -> CLASSIFY -> HASH -> LINK -> SUMMARIZE -> DETECT_CONFLICT -> UPDATE_META_INDEX -> VERIFY -> REFRESH
@@ -42,14 +48,14 @@ The meta-index never silently resolves contradictions. A conflict produces an ex
 ## Retrieval
 For a task, the Brain of Brain queries the meta-index first:
 
-`task -> relevant projects -> relevant agents -> relevant indexes -> relevant entries`
+`task -> relevant projects -> relevant agents -> relevant specialized indexes -> relevant entries`
 
 Only selected context is loaded into the reasoning stage.
 
 ## Scale
 For 1,000 logical agents:
 
-`1,000 Agent Indexes -> Domain Indexes -> Cross-Agent Index -> Project Indexes -> Global Meta-Index`
+`1,000 Agent Indexes -> Domain Indexes -> Specialized Structural Indexes -> Cross-Agent Index -> Project Indexes -> Global Meta-Index`
 
 ## Architectural invariant
 The NTM communicates with the memory topology through indexes, not through raw conversation replay.
