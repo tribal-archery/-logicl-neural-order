@@ -2,48 +2,104 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "title": "Neural Thinking Machine Task Envelope",
   "type": "object",
-  "required": ["request_id", "task_id", "intent", "context", "constraints", "expected_output_schema"],
+  "required": [
+    "request_id",
+    "task_id",
+    "intent",
+    "context",
+    "input",
+    "constraints",
+    "evidence_requirements",
+    "expected_output_schema"
+  ],
   "properties": {
-    "request_id": {"type": "string", "minLength": 1},
-    "task_id": {"type": "string", "minLength": 1},
+    "request_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "task_id": {
+      "type": "string",
+      "minLength": 1
+    },
     "intent": {
       "type": "object",
-      "required": ["action", "object"],
+      "required": [
+        "action",
+        "object"
+      ],
       "properties": {
-        "action": {"type": "string"},
-        "object": {"type": "string"},
-        "target": {"type": "string"},
-        "project": {"type": "string"}
+        "action": {
+          "type": "string"
+        },
+        "object": {
+          "type": "string"
+        },
+        "target": {
+          "type": "string"
+        },
+        "project": {
+          "type": "string"
+        }
       },
       "additionalProperties": true
     },
     "context": {
       "type": "object",
-      "required": ["project", "component", "version", "process", "source"],
+      "required": [
+        "project",
+        "component",
+        "version",
+        "process",
+        "source"
+      ],
       "properties": {
-        "project": {"type": "string"},
-        "component": {"type": "string"},
-        "version": {"type": "string"},
-        "process": {"type": "string"},
-        "identity": {"type": "string"},
-        "time": {"type": "string"},
-        "source": {"type": "string"}
+        "project": {
+          "type": "string"
+        },
+        "component": {
+          "type": "string"
+        },
+        "version": {
+          "type": "string"
+        },
+        "process": {
+          "type": "string"
+        },
+        "identity": {
+          "type": "string"
+        },
+        "time": {
+          "type": "string"
+        },
+        "source": {
+          "type": "string"
+        }
       },
       "additionalProperties": true
     },
     "input": {},
-    "constraints": {"type": "array", "items": {"type": "string"}},
-    "evidence_requirements": {"type": "array", "items": {"type": "string"}},
-    "expected_output_schema": {"type": "object"},
-    "budget": {
-      "type": "object",
-      "properties": {
-        "max_steps": {"type": "integer", "minimum": 1},
-        "max_parallel": {"type": "integer", "minimum": 1},
-        "max_latency_ms": {"type": "integer", "minimum": 1},
-        "max_cost_units": {"type": "number", "minimum": 0}
-      },
-      "additionalProperties": false
+    "constraints": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "evidence_requirements": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "expected_output_schema": {
+      "type": "object"
+    },
+    "max_steps": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "max_parallel": {
+      "type": "integer",
+      "minimum": 1
     }
   },
   "additionalProperties": false
