@@ -12,7 +12,7 @@ from time import perf_counter
 from typing import Any, Protocol, Sequence
 from uuid import uuid4
 
-from .thought_modes import ThoughtMode, get_mode
+from .thought_modes import get_mode
 
 
 @dataclass(frozen=True)
@@ -44,6 +44,7 @@ class RouteDecision:
     mode_ids: tuple[int, ...]
     machine_ids: tuple[str, ...]
     regime: str
+    capability: str
     reason: str
 
 
@@ -124,6 +125,7 @@ class ComputationAllocator:
             mode_ids=modes,
             machine_ids=(),
             regime=regime,
+            capability=capability,
             reason=f"uncertainty={uncertainty:.3f}; dispersion={dispersion:.3f}; capability={capability}",
         )
 
@@ -164,9 +166,8 @@ class NeuralThinkingMachine:
 
     def plan(self, task: TaskEnvelope) -> RouteDecision:
         decision = self.allocator.route(task)
-        capability = self._capability_for_modes(decision.mode_ids)
         candidates = sorted(
-            self.registry.by_capability(capability),
+            self.registry.by_capability(decision.capability),
             key=lambda machine: machine.reliability,
             reverse=True,
         )[: task.max_parallel]
@@ -174,6 +175,7 @@ class NeuralThinkingMachine:
             mode_ids=decision.mode_ids,
             machine_ids=tuple(machine.machine_id for machine in candidates),
             regime=decision.regime,
+            capability=decision.capability,
             reason=decision.reason,
         )
         self.audit.record("ROUTE", {"task_id": task.task_id, "decision": decision.__dict__})
@@ -241,7 +243,7 @@ class NeuralThinkingMachine:
             status="BLOCKED",
             latency_ms=0.0,
             input_hash=sha256(repr(task.input).encode("utf-8")).hexdigest(),
-            provenance={"origin": "ntm-orchestrator", "reason": reason},
+            provenance={"origin": "ntm-orchestrator", "chain_id": str(uuid4()), "reason": reason},
         )
 
 
