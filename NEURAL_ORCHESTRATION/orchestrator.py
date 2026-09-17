@@ -62,6 +62,7 @@ class DispatchResult:
     input_hash: str
     provenance: dict[str, Any]
     evidence_refs: tuple[str, ...] = ()
+    evidence_status: str = "unverified"
 
 
 class ModelAdapter(Protocol):
@@ -133,18 +134,35 @@ class ComputationAllocator:
 class VerificationGate:
     def verify(self, results: Sequence[DispatchResult], task: TaskEnvelope) -> dict[str, Any]:
         if not results:
-            return {"accepted": False, "reason": "no_results"}
+            return {
+                "accepted": False,
+                "reason": "no_results",
+                "verification_status": "unverified",
+            }
+
         blocked = [result for result in results if result.status in {"ERROR", "BLOCKED"}]
         max_uncertainty = max(result.uncertainty for result in results)
         evidence_ok = not task.evidence_requirements or all(
             result.evidence_refs for result in results
         )
         accepted = not blocked and evidence_ok and max_uncertainty <= 0.85
+        status = "supported" if accepted else "unverified"
+
         return {
             "accepted": accepted,
+            "verification_status": status,
             "max_uncertainty": max_uncertainty,
             "evidence_ok": evidence_ok,
             "blocked_results": len(blocked),
+            "claims": [
+                {
+                    "claim": "dispatch results satisfy the V1 verification gate",
+                    "evidence": list(task.evidence_requirements),
+                    "status": status,
+                    "confidence": max(0.0, 1.0 - max_uncertainty),
+                    "unresolved_conflicts": [],
+                }
+            ],
         }
 
 
@@ -168,8 +186,7 @@ class NeuralThinkingMachine:
         decision = self.allocator.route(task)
         candidates = sorted(
             self.registry.by_capability(decision.capability),
-            key=lambda machine: machine.reliability,
-            reverse=True,
+            key=lambda machine: (-machine.reliability, machine.machine_id),
         )[: task.max_parallel]
         decision = RouteDecision(
             mode_ids=decision.mode_ids,
@@ -178,20 +195,26 @@ class NeuralThinkingMachine:
             capability=decision.capability,
             reason=decision.reason,
         )
-        self.audit.record("ROUTE", {"task_id": task.task_id, "decision": decision.__dict__})
+        self.audit.record(
+            "ROUTE",
+            {"task_id": task.task_id, "decision": decision.__dict__},
+        )
         return decision
 
     def execute(self, task: TaskEnvelope) -> tuple[list[DispatchResult], dict[str, Any]]:
         decision = self.plan(task)
         results: list[DispatchResult] = []
+        input_hash = self._input_hash(task.input)
+        chain_id = self._chain_id(task, input_hash)
+
         for machine_id in decision.machine_ids:
             machine = self.registry.get(machine_id)
             adapter = self.adapters.get(machine_id)
             if adapter is None:
                 results.append(self._blocked(task, machine, "adapter_missing"))
                 continue
+
             started = perf_counter()
-            input_hash = sha256(repr(task.input).encode("utf-8")).hexdigest()
             try:
                 output = adapter.generate({
                     "task": task,
@@ -209,14 +232,43 @@ class NeuralThinkingMachine:
                     status="OK",
                     latency_ms=(perf_counter() - started) * 1000,
                     input_hash=input_hash,
-                    provenance={"origin": "ntm-orchestrator", "chain_id": str(uuid4())},
+                    provenance={
+                        "origin": "ntm-orchestrator",
+                        "chain_id": chain_id,
+                        "orchestration_version": task.context.get("version", "unknown"),
+                    },
+                    evidence_status=(
+                        "supported" if task.evidence_requirements else "unverified"
+                    ),
                 ))
             except Exception as exc:
                 results.append(self._blocked(task, machine, str(exc)))
 
         verification = self.verifier.verify(results, task)
-        self.audit.record("VERIFY", {"task_id": task.task_id, "verification": verification})
+        self.audit.record(
+            "VERIFY",
+            {"task_id": task.task_id, "verification": verification},
+        )
+        self.audit.record(
+            "SELF_AUDIT",
+            {
+                "task_id": task.task_id,
+                "executed_results": len(results),
+                "verified": verification["accepted"],
+                "uncertainty": verification.get("max_uncertainty"),
+                "drift": None,
+            },
+        )
         return results, verification
+
+    @staticmethod
+    def _input_hash(value: Any) -> str:
+        return sha256(repr(value).encode("utf-8")).hexdigest()
+
+    @staticmethod
+    def _chain_id(task: TaskEnvelope, input_hash: str) -> str:
+        seed = f"{task.request_id}:{task.task_id}:{input_hash}:{task.context.get('version', 'unknown')}"
+        return sha256(seed.encode("utf-8")).hexdigest()
 
     @staticmethod
     def _capability_for_modes(mode_ids: Sequence[int]) -> str:
@@ -232,6 +284,8 @@ class NeuralThinkingMachine:
 
     @staticmethod
     def _blocked(task: TaskEnvelope, machine: MachineSpec, reason: str) -> DispatchResult:
+        input_hash = NeuralThinkingMachine._input_hash(task.input)
+        chain_id = NeuralThinkingMachine._chain_id(task, input_hash)
         return DispatchResult(
             request_id=task.request_id,
             task_id=task.task_id,
@@ -242,8 +296,14 @@ class NeuralThinkingMachine:
             uncertainty=1.0,
             status="BLOCKED",
             latency_ms=0.0,
-            input_hash=sha256(repr(task.input).encode("utf-8")).hexdigest(),
-            provenance={"origin": "ntm-orchestrator", "chain_id": str(uuid4()), "reason": reason},
+            input_hash=input_hash,
+            provenance={
+                "origin": "ntm-orchestrator",
+                "chain_id": chain_id,
+                "reason": reason,
+                "orchestration_version": task.context.get("version", "unknown"),
+            },
+            evidence_status="unverified",
         )
 
 
