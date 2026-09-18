@@ -67,4 +67,30 @@ def test_route_and_verification_are_audited():
     ntm = build_ntm()
     task = new_task({"action": "analyze", "object": "task"}, "data")
     ntm.execute(task)
-    assert [event["event_type"] for event in ntm.audit.events] == ["ROUTE", "VERIFY"]
+    assert [event["event_type"] for event in ntm.audit.events] == [
+        "ROUTE",
+        "VERIFY",
+        "SELF_AUDIT",
+    ]
+
+
+def test_provenance_chain_is_deterministic_for_same_task():
+    ntm = build_ntm()
+    task = new_task({"action": "analyze", "object": "task"}, "same-data")
+    first, _ = ntm.execute(task)
+    second, _ = ntm.execute(task)
+    assert first[0].input_hash == second[0].input_hash
+    assert first[0].provenance["chain_id"] == second[0].provenance["chain_id"]
+
+
+def test_evidence_requirement_is_exposed_in_verification():
+    ntm = build_ntm()
+    task = new_task(
+        {"action": "analyze", "object": "claim"},
+        "claim-data",
+        evidence_requirements=("evidence://source-1",),
+    )
+    results, verification = ntm.execute(task)
+    assert results[0].evidence_status == "unverified"
+    assert verification["verification_status"] == "unverified"
+    assert verification["accepted"] is False
