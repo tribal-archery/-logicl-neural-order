@@ -87,7 +87,7 @@ class MachineRegistry:
 
 class ComputationAllocator:
     def route(self, task: TaskEnvelope) -> RouteDecision:
-        uncertainty = float(task.context.get("uncertainty", 0.5))
+        uncertainty = float(task.context.get("uncertainty", 0.0))
         dispersion = float(task.context.get("dispersion", 0.0))
         kind = str(task.intent.get("action", "general"))
         object_name = str(task.intent.get("object", ""))
@@ -218,7 +218,7 @@ class NeuralThinkingMachine:
                         "chain_id": chain_id,
                         "orchestration_version": task.context.get("version", "unknown"),
                     },
-                    evidence_status="supported" if task.evidence_requirements else "unverified",
+                    evidence_status="unverified",
                 ))
             except Exception as exc:
                 results.append(self._blocked(task, machine, str(exc)))
