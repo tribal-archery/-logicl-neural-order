@@ -66,8 +66,6 @@ class DispatchResult:
 
 
 class ModelAdapter(Protocol):
-    """Provider-neutral compute interface."""
-
     def generate(self, request: dict[str, Any]) -> Any:
         ...
 
@@ -88,12 +86,6 @@ class MachineRegistry:
 
 
 class ComputationAllocator:
-    """Maps task signals to a small initial mode plan.
-
-    This is deliberately deterministic in V1. Learned routing can replace this
-    policy later without changing task/result schemas or the Neural OS contract.
-    """
-
     def route(self, task: TaskEnvelope) -> RouteDecision:
         uncertainty = float(task.context.get("uncertainty", 0.5))
         dispersion = float(task.context.get("dispersion", 0.0))
@@ -134,17 +126,11 @@ class ComputationAllocator:
 class VerificationGate:
     def verify(self, results: Sequence[DispatchResult], task: TaskEnvelope) -> dict[str, Any]:
         if not results:
-            return {
-                "accepted": False,
-                "reason": "no_results",
-                "verification_status": "unverified",
-            }
+            return {"accepted": False, "reason": "no_results", "verification_status": "unverified"}
 
         blocked = [result for result in results if result.status in {"ERROR", "BLOCKED"}]
         max_uncertainty = max(result.uncertainty for result in results)
-        evidence_ok = not task.evidence_requirements or all(
-            result.evidence_refs for result in results
-        )
+        evidence_ok = not task.evidence_requirements or all(result.evidence_refs for result in results)
         accepted = not blocked and evidence_ok and max_uncertainty <= 0.85
         status = "supported" if accepted else "unverified"
 
@@ -154,15 +140,13 @@ class VerificationGate:
             "max_uncertainty": max_uncertainty,
             "evidence_ok": evidence_ok,
             "blocked_results": len(blocked),
-            "claims": [
-                {
-                    "claim": "dispatch results satisfy the V1 verification gate",
-                    "evidence": list(task.evidence_requirements),
-                    "status": status,
-                    "confidence": max(0.0, 1.0 - max_uncertainty),
-                    "unresolved_conflicts": [],
-                }
-            ],
+            "claims": [{
+                "claim": "dispatch results satisfy the V1 verification gate",
+                "evidence": list(task.evidence_requirements),
+                "status": status,
+                "confidence": max(0.0, 1.0 - max_uncertainty),
+                "unresolved_conflicts": [],
+            }],
         }
 
 
@@ -195,10 +179,7 @@ class NeuralThinkingMachine:
             capability=decision.capability,
             reason=decision.reason,
         )
-        self.audit.record(
-            "ROUTE",
-            {"task_id": task.task_id, "decision": decision.__dict__},
-        )
+        self.audit.record("ROUTE", {"task_id": task.task_id, "decision": decision.__dict__})
         return decision
 
     def execute(self, task: TaskEnvelope) -> tuple[list[DispatchResult], dict[str, Any]]:
@@ -237,28 +218,20 @@ class NeuralThinkingMachine:
                         "chain_id": chain_id,
                         "orchestration_version": task.context.get("version", "unknown"),
                     },
-                    evidence_status=(
-                        "supported" if task.evidence_requirements else "unverified"
-                    ),
+                    evidence_status="supported" if task.evidence_requirements else "unverified",
                 ))
             except Exception as exc:
                 results.append(self._blocked(task, machine, str(exc)))
 
         verification = self.verifier.verify(results, task)
-        self.audit.record(
-            "VERIFY",
-            {"task_id": task.task_id, "verification": verification},
-        )
-        self.audit.record(
-            "SELF_AUDIT",
-            {
-                "task_id": task.task_id,
-                "executed_results": len(results),
-                "verified": verification["accepted"],
-                "uncertainty": verification.get("max_uncertainty"),
-                "drift": None,
-            },
-        )
+        self.audit.record("VERIFY", {"task_id": task.task_id, "verification": verification})
+        self.audit.record("SELF_AUDIT", {
+            "task_id": task.task_id,
+            "executed_results": len(results),
+            "verified": verification["accepted"],
+            "uncertainty": verification.get("max_uncertainty"),
+            "drift": None,
+        })
         return results, verification
 
     @staticmethod
@@ -269,18 +242,6 @@ class NeuralThinkingMachine:
     def _chain_id(task: TaskEnvelope, input_hash: str) -> str:
         seed = f"{task.request_id}:{task.task_id}:{input_hash}:{task.context.get('version', 'unknown')}"
         return sha256(seed.encode("utf-8")).hexdigest()
-
-    @staticmethod
-    def _capability_for_modes(mode_ids: Sequence[int]) -> str:
-        mapping = {
-            15: "code",
-            13: "formal_reasoning",
-            18: "formal_reasoning",
-            7: "search",
-            9: "search",
-            10: "search",
-        }
-        return mapping.get(mode_ids[0], "general_reasoning")
 
     @staticmethod
     def _blocked(task: TaskEnvelope, machine: MachineSpec, reason: str) -> DispatchResult:
@@ -307,7 +268,17 @@ class NeuralThinkingMachine:
         )
 
 
-def new_task(intent: dict[str, Any], input_data: Any, **context: Any) -> TaskEnvelope:
+def new_task(
+    intent: dict[str, Any],
+    input_data: Any,
+    *,
+    constraints: tuple[str, ...] = (),
+    evidence_requirements: tuple[str, ...] = (),
+    expected_output_schema: dict[str, Any] | None = None,
+    max_steps: int = 8,
+    max_parallel: int = 4,
+    **context: Any,
+) -> TaskEnvelope:
     request_id = str(uuid4())
     return TaskEnvelope(
         request_id=request_id,
@@ -322,4 +293,9 @@ def new_task(intent: dict[str, Any], input_data: Any, **context: Any) -> TaskEnv
             **context,
         },
         input=input_data,
+        constraints=constraints,
+        evidence_requirements=evidence_requirements,
+        expected_output_schema=expected_output_schema or {},
+        max_steps=max_steps,
+        max_parallel=max_parallel,
     )
