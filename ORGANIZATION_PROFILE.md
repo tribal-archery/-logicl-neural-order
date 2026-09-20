@@ -1,76 +1,61 @@
 # Tribal Archery — Research & Computational Architecture
 
-**Independent research organization for computational architecture, AI systems, reasoning, verification, and evidence.**
+**Independent research and engineering organization for computational architecture, AI systems, reasoning, verification, evidence, and infrastructure.**
 
-Tribal Archery is a research and engineering organization focused on the architecture of intelligent computational systems.
+## Infrastructure role
 
-Its work connects:
+Tribal Archery provides the **technical infrastructure layer** for projects and organizations that require computational systems, evidence, provenance, verification, workflow automation, and auditable records.
 
-- **Rational Logic** — structured reasoning, logical constraints, and verification-oriented computation
-- **Neural Thinking Machine (NTM)** — provider-neutral orchestration and inference-time reasoning architectures
-- **AI Drift Forensics** — detection, reconstruction, provenance, and verification of changes in AI behavior
-- **Evidence & Provenance** — auditable records of computation, inputs, outputs, dependencies, and system state
-- **Architecture Research** — computational, philosophical, technological, institutional, and human dimensions of complex systems
-- **Model and Agent Infrastructure** — model registries, capability routing, orchestration, verification, and execution layers
+For the **Quadruple Multilevel Projection Project**, the relationship is:
 
-## Research Principle
+**QUADRUPLE ORGANIZATION**
+→ finance / treasury
+→ issuance / capital structure
+→ investors / stakeholders
+→ governance / reporting
 
-The organization treats **generation and verification as distinct functions**.
+**TRIBAL ARCHERY INFRASTRUCTURE**
+→ identity and access interfaces
+→ repositories
+→ evidence and provenance
+→ verification
+→ workflow automation
+→ technical research
+→ audit trails
 
-A model output is an observation.  
-An interpretation is a separate operation.  
-Evidence must remain traceable to its source.  
-Claims about system capability must be separated from demonstrated implementation.
+The infrastructure layer supports the organization. It does not automatically become the legal owner, issuer, investment manager, broker, bank, fiduciary, or regulated financial authority.
 
-The architecture therefore emphasizes:
+## Research domains
 
-**Priority → Context → Intent → Computation → Evidence → Verification → Audit**
+- Rational Logic
+- Neural Thinking Machine / WANGA
+- AI Drift Forensics
+- Evidence & Provenance
+- Verification and Audit
+- Computational Architecture
+- Model and Agent Infrastructure
+- Formal and philosophical structures
 
-## Research Method
+## People and evidence
 
-The broader research program moves from conceptual questions toward reproducible technical evidence:
+The organization uses an evidence-first personnel model.
 
-**QUESTION → ARCHITECTURE → IMPLEMENTATION → OBSERVATION → EVIDENCE → VERIFICATION**
+**No person is fabricated. No role is presented as filled without a real person and supporting evidence.**
 
-Work is classified according to evidence status:
+See:
 
-**BUILT · SPECIFIED · PROTOTYPED · TESTED · VERIFIED · PLANNED · HYPOTHETICAL**
+- [Volunteer / Worker Registry](VOLUNTEER_REGISTRY.md)
+- [Evidence Registry](EVIDENCE_REGISTRY.md)
+- [Quadruple Infrastructure Interface](QUADRUPLE_INFRASTRUCTURE_INTERFACE.md)
 
-A specification is not an implementation, and an implementation is not automatically verified.
+## Evidence states
 
-## Core Repository
+**UNASSIGNED → IDENTIFIED → DOCUMENTED → VERIFIED → ACTIVE**
 
-### Neural Thinking Machine / WANGA
+A GitHub contribution can demonstrate technical work, but does not by itself establish employment, volunteer status, financial authority, investor status, qualification, or legal authority.
 
-The principal repository contains the current research and engineering workspace for a provider-neutral Neural Thinking Machine architecture.
+## Engineering discipline
 
-It documents orchestration, model/provider abstraction, capability routing, verification, provenance, audit, and the transition from architectural specification toward executable systems.
+**READ → CLAIM → IMPLEMENT → TEST → VERIFY → COMMIT → PR → REVIEW**
 
-## Research Direction
-
-The organization investigates how computational architectures can preserve:
-
-1. **Reasoning structure**
-2. **Evidence continuity**
-3. **System provenance**
-4. **Independent verification**
-5. **Diagnosable change**
-6. **Provider neutrality**
-7. **Human and institutional accountability**
-
-The objective is not to treat AI as an isolated model, but as a system of interacting computational, evidentiary, organizational, and human architectures.
-
-## Status
-
-This organization profile describes an evolving research program. Individual repositories define their own implementation status and evidence boundaries.
-
-No capability is treated as established merely because it is specified. Claims are advanced through implementation, testing, verification, and preserved evidence.
-
-## Contact & Collaboration
-
-Technical, research, and scientific collaboration routes are maintained in the repository documentation.
-
----
-
-**Tribal Archery**  
-Research & Computational Architecture
+No capability is treated as complete merely because code exists.
