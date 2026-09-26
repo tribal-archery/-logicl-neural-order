@@ -341,6 +341,24 @@ def _mse(values: Iterable[float], targets: Iterable[float]) -> float:
     pairs = list(zip(values, targets))
     return sum((float(a) - float(b)) ** 2 for a, b in pairs) / max(len(pairs), 1)
 
+class QuantumNeuralAdapter:
+    """Adapter implementing the Neural Thinking Machine ModelAdapter contract."""
+
+    def __init__(self, network: VariationalQuantumNeuralNetwork | None = None) -> None:
+        self.network = network or VariationalQuantumNeuralNetwork()
+
+    def generate(self, request: dict[str, Any]) -> dict[str, Any]:
+        task = request["task"]
+        data = task.input if isinstance(task.input, Sequence) and not isinstance(task.input, (str, bytes)) else None
+        if data is None or len(data) != NODE_COUNT:
+            raise ValueError("quantum neural adapter requires task.input with exactly 231 numeric nodes")
+        result = self.network.forward(data, shots=DEFAULT_SHOTS)
+        result["orchestration"] = {
+            "mode_ids": list(request.get("mode_ids", ())),
+            "mode_names": list(request.get("mode_names", ())),
+        }
+        return result
+
 
 __all__ = [
     "NODE_COUNT",
@@ -353,6 +371,7 @@ __all__ = [
     "AzureQuantumAdapter",
     "CirqAdapter",
     "VariationalQuantumNeuralNetwork",
+    "QuantumNeuralAdapter",
     "build_variational_circuit",
     "encode_nodes",
     "normalize_measurements",
