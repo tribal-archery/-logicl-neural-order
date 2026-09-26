@@ -1,0 +1,24 @@
+{
+  "name": "quantum-neural-bridge",
+  "version": "0.1.0",
+  "status": "SPECIFIED",
+  "logical_nodes": 231,
+  "qubits": 8,
+  "encoding": "231_nodes_modulo_8",
+  "shots_default": 128,
+  "components": {
+    "problem": "QuantumProblem",
+    "circuit_ir": "QuantumCircuitIR",
+    "local_simulator": "LocalSimulator",
+    "providers": ["IBMAdapter", "AzureQuantumAdapter", "CirqAdapter"],
+    "qnn": "VariationalQuantumNeuralNetwork",
+    "ntm_adapter": "QuantumNeuralAdapter",
+    "evidence": "EvidenceArtifact",
+    "verification": "verify_bridge"
+  },
+  "verification_boundary": {
+    "local_structural_verification": true,
+    "physical_quantum_execution_proven": false,
+    "cloud_execution_claimed": false
+  }
+}

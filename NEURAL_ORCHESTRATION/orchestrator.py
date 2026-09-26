@@ -93,7 +93,11 @@ class ComputationAllocator:
         object_name = str(task.intent.get("object", ""))
         text = f"{kind} {object_name}".lower()
 
-        if "code" in text or "software" in text:
+        if "quantum" in text or "qubit" in text:
+            modes = (8, 15, 25)
+            capability = "quantum_neural"
+            regime = "hybrid_quantum_variational"
+        elif "code" in text or "software" in text:
             modes = (15, 21, 23)
             capability = "code"
             regime = "symbolic_execution"

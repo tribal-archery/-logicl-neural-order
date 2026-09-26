@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<source_registry version="0.1.0" status="COLLECTED">
+  <collection name="petah_hokhma_wikisource" work="קל״ח פתחי חכמה">
+    <source id="wikisource-petah-121" title="פתח קכ״א" url="https://he.wikisource.org/wiki/קל%22ח_פתחי_חכמה/פתח_קכא" status="URL_NORMALIZED"/>
+    <source id="wikisource-petah-120" title="פתח ק״כ" url="https://he.wikisource.org/wiki/קל%22ח_פתחי_חכמה/פתח_קכ" status="URL_NORMALIZED"/>
+    <source id="wikisource-petah-119" title="פתח קי״ט" url="https://he.wikisource.org/wiki/קל%22ח_פתחי_חכמה/פתח_קיט" status="URL_NORMALIZED"/>
+    <source id="wikisource-petah-118" title="פתח קי״ח" url="https://he.wikisource.org/wiki/קל%22ח_פתחי_חכמה/פתח_קיח" status="URL_NORMALIZED"/>
+    <source id="wikisource-petah-117" title="פתח קי״ז" url="https://he.wikisource.org/wiki/קל%22ח_פתחי_חכמה/פתח_קיז" status="URL_NORMALIZED"/>
+    <source id="wikisource-petah-116" title="פתח קט״ז" url="https://he.wikisource.org/wiki/קל%22ח_פתחי_חכמה/פתח_קטז" status="URL_NORMALIZED"/>
+    <source id="wikisource-petah-115" title="פתח קט״ו" url="https://he.wikisource.org/wiki/קל%22ח_פתחי_חכמה/פתח_קטו" status="URL_NORMALIZED"/>
+    <source id="wikisource-petah-114" title="פתח קי״ד" url="https://he.wikisource.org/wiki/קל%22ח_פתחי_חכמה/פתח_קיד" status="URL_NORMALIZED"/>
+    <source id="wikisource-petah-113" title="פתח קי״ג" url="https://he.wikisource.org/wiki/קל%22ח_פתחי_חכמה/פתח_קיג" status="URL_NORMALIZED"/>
+    <source id="wikisource-petah-112" title="פתח קי״ב" url="https://he.wikisource.org/wiki/קל%22ח_פתחי_חכמה/פתח_קיב" status="URL_NORMALIZED"/>
+    <source id="wikisource-petah-111" title="פתח קי״א" url="https://he.wikisource.org/wiki/קל%22ח_פתחי_חכמה/פתח_קיא" status="URL_NORMALIZED"/>
+  </collection>
+
+  <collection name="uploaded_primary_sources" status="AVAILABLE_FOR_EXTRACTION">
+    <source id="milot-higayon-1928" title="מילות הגיון, ורשה 1928" local_reference="Treatise on Logic - he - Milot Higayon, Warsaw, 1928" extraction_status="PENDING_STRUCTURED_EXTRACTION"/>
+    <source id="sefer-ha-tziruf" title="ספר הצירוף" local_reference="ספר הצירוף The Book of Combination" extraction_status="PENDING_STRUCTURED_EXTRACTION"/>
+    <source id="algorithmic-path-creation" title="Algorithmic Path Creation" local_reference="Branch · Algorithmic Path Creation" extraction_status="PENDING_STRUCTURED_EXTRACTION"/>
+  </collection>
+
+  <pipeline>
+    <stage order="1">REGISTER_URL</stage>
+    <stage order="2">FETCH_SOURCE</stage>
+    <stage order="3">EXTRACT_TEXT</stage>
+    <stage order="4">PRESERVE_PAGE_SECTION_LOCATION</stage>
+    <stage order="5">NORMALIZE_OCR_WITHOUT_REWRITING_SOURCE</stage>
+    <stage order="6">STRUCTURAL_EXTRACTION</stage>
+    <stage order="7">CROSS_SOURCE_RELATION</stage>
+    <stage order="8">COMPUTATIONAL_MAPPING</stage>
+    <stage order="9">EVIDENCE_HASH</stage>
+    <stage order="10">VERIFICATION_GATE</stage>
+  </pipeline>
+
+  <status_policy>
+    <status>URL_REGISTERED</status>
+    <status>TEXT_EXTRACTED</status>
+    <status>STRUCTURALLY_EXTRACTED</status>
+    <status>INTERPRETATION</status>
+    <status>HYPOTHESIS</status>
+    <status>VERIFIED</status>
+  </status_policy>
+
+  <future_sources>
+    <source_group name="google">PENDING_USER_LINKS</source_group>
+    <source_group name="wikipedia">PENDING_USER_LINKS</source_group>
+    <source_group name="additional_servers">PENDING_USER_LINKS</source_group>
+  </future_sources>
+</source_registry>
